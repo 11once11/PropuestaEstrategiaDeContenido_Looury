@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta de Estrategia de Contenido - ELEVEN</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000000;
+            color: #FFFFFF;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Elementos de fondo animados */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #C084FC, #A855F7);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .blob-2 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #A855F7, #9333EA);
+            top: 60%;
+            right: 15%;
+            animation-delay: -10s;
+        }
+        
+        .blob-3 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #9333EA, #C084FC);
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -5s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+        
+        /* Estructura de páginas */
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 40px;
+            background: #000000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Contenedores acrílicos */
+        .glass-container {
+            background: rgba(192, 132, 252, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(192, 132, 252, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 
+                0 20px 40px rgba(147, 51, 234, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-container-small {
+            background: rgba(168, 85, 247, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 
+                0 10px 25px rgba(147, 51, 234, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Tipografía */
+        .title-main {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #C084FC, #A855F7, #9333EA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(192, 132, 252, 0.5);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .title-section {
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            color: #C084FC;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(192, 132, 252, 0.4);
+            margin-bottom: 15px;
+        }
+        
+        .title-subsection {
+            font-size: 1.1rem;
+            color: #A855F7;
+            font-weight: 600;
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            margin-bottom: 12px;
+        }
+        
+        .text-primary {
+            color: #FFFFFF;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .text-secondary {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Listas estilizadas */
+        .custom-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .custom-list li {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #A855F7;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(147, 51, 234, 0.1);
+        }
+        
+        .custom-list li:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(147, 51, 234, 0.2);
+        }
+        
+        .custom-list li strong {
+            color: #C084FC;
+            font-weight: 600;
+        }
+        
+        /* Elementos numerados */
+        .numbered-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            gap: 12px;
+        }
+        
+        .number-circle {
+            background: linear-gradient(135deg, #9333EA, #C084FC);
+            color: #FFFFFF;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.4);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            flex-shrink: 0;
+        }
+        
+        /* Tabla moderna */
+        .modern-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        .modern-table th,
+        .modern-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(192, 132, 252, 0.2);
+        }
+        
+        .modern-table th {
+            background: rgba(192, 132, 252, 0.1);
+            color: #C084FC;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+        }
+        
+        .modern-table tr:hover {
+            background: rgba(168, 85, 247, 0.05);
+        }
+        
+        /* Sección de precio destacada */
+        .price-section {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(192, 132, 252, 0.1));
+            border: 2px solid rgba(192, 132, 252, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(192, 132, 252, 0.2);
+            margin: 20px 0;
+        }
+        
+        .price-amount {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #C084FC;
+            text-shadow: 0 0 20px rgba(192, 132, 252, 0.6);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- SECCIÓN 1: DIAGNÓSTICO ACTUAL -->
+    <div class="page">
+        <div class="glass-container">
+            <h2 class="title-section">Situación Actual y Diagnóstico</h2>
+            <p class="text-primary">
+                Los siguientes puntos limitan hoy el crecimiento y efectividad de tus lanzamientos:
+            </p>
+        </div>
+
+        <div class="glass-container-small">
+            <ul class="custom-list">
+                <li>
+                    <strong>Limitaciones de tiempo.</strong> La barbería consume la mayor parte de tu tiempo, reduciendo la disponibilidad para promoción musical.
+                </li>
+                <li>
+                    <strong>Falta de dirección clara.</strong> Tenés las herramientas y confianza en tu música, pero no ves el camino para avanzar con foco.
+                </li>
+                <li>
+                    <strong>Vida útil corta del lanzamiento.</strong> Las visualizaciones suben 2-3 días y se frenan por falta de sistema post-estreno.
+                </li>
+                <li>
+                    <strong>Frustración por comparación.</strong> Otros artistas parecen hacer las cosas bien mientras vos no podés seguir el mismo ritmo.
+                </li>
+                <li>
+                    <strong>Transición sin sistema.</strong> Pasaste del "spam" a buscar crecimiento genuino, pero sin estructura que lo sostenga.
+                </li>
+                <li>
+                    <strong>Identidad poco reflejada.</strong> No se aprovecha tu disposición a aparecer en cámara para conectar con la audiencia.
+                </li>
+                <li>
+                    <strong>Dependencia total.</strong> Todo depende de vos, dificultando el crecimiento sin sacrificar otros compromisos.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 2: OBJETIVOS Y PLAN -->
+    <div class="page">
+        <div class="glass-container">
+            <h2 class="title-section">Objetivos y Plan de Trabajo</h2>
+        </div>
+
+        <div class="glass-container-small">
+            <h3 class="title-subsection">Objetivos Clave</h3>
+            <ul class="custom-list">
+                <li><strong>Identificar tu público objetivo</strong> y crear contenido específico para ellos.</li>
+                <li><strong>Alcanzar 1.000 views</strong> en YouTube con este lanzamiento.</li>
+                <li><strong>Testear y optimizar.</strong> Probar formatos, medir impacto, repetir lo que funciona.</li>
+                <li><strong>Construir un equipo.</strong> Vos te enfocás en crear, nosotros en la estrategia y ejecución.</li>
+                <li><strong>Enfoque orgánico sostenible</strong> que funcione sin depender 100% de tu tiempo diario.</li>
+            </ul>
+        </div>
+
+        <div class="glass-container-small">
+            <h3 class="title-subsection">Soluciones Aplicadas</h3>
+            <table class="modern-table">
+                <tbody>
+                    <tr>
+                        <td><strong>Tiempo limitado</strong></td>
+                        <td>Sistema automatizado que no depende de tu disponibilidad diaria.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vida útil corta</strong></td>
+                        <td>Estrategia de 20 días post-estreno manteniendo el contenido activo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Falta de dirección</strong></td>
+                        <td>Plan paso a paso con objetivos claros y métricas definidas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dependencia total</strong></td>
+                        <td>Delegación completa de ejecución para que te enfoques en crear.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 3: MODALIDAD Y ENTREGABLES -->
+    <div class="page">
+        <div class="glass-container">
+            <h2 class="title-section">🤝 Modalidad de Trabajo</h2>
+        </div>
+
+        <div class="glass-container-small">
+            <h3 class="title-subsection">Comunicación</h3>
+            <ul class="custom-list">
+                <li><strong>Reuniones semanales</strong> (30 min) para revisar progreso</li>
+                <li><strong>Soporte via WhatsApp</strong> para coordinación diaria</li>
+                <li><strong>Reportes</strong> con métricas e insights semanales</li>
+            </ul>
+        </div>
+
+        <div class="glass-container-small">
+            <h3 class="title-subsection">Entregables por Lanzamiento</h3>
+            <ul class="custom-list">
+                <li><strong>Calendarización completa</strong> de cada publicación</li>
+                <li><strong>1 Snippet</strong> anunciando fecha y hora de lanzamiento</li>
+                <li><strong>3 reels/tiktoks</strong> con lyrics para pre-lanzamiento</li>
+                <li><strong>8 reels/tiktoks creativos</strong> para post-lanzamiento</li>
+                <li><strong>Guías de grabación</strong> detalladas para cada pieza</li>
+            </ul>
+        </div>
+
+        <div class="glass-container-small">
+            <h3 class="title-subsection">Propuesta de Valor</h3>
+            <ul class="custom-list">
+                <li><strong>Tiempo liberado</strong> para enfocarte en música y vida personal</li>
+                <li><strong>Crecimiento asegurado</strong> de audiencia con métricas claras</li>
+                <li><strong>Profesionalización</strong> de imagen artística</li>
+                <li><strong>Datos valiosos</strong> para optimizar futuros lanzamientos</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 4: INVERSIÓN Y PRÓXIMOS PASOS -->
+    <div class="page">
+        <div class="glass-container">
+            <h2 class="title-section">💰 Inversión</h2>
+            <div class="price-section">
+                <div class="price-amount">$150.000 ARS</div>
+            </div>
+        </div>
+
+        <div class="glass-container">
+            <h2 class="title-section">Próximos Pasos</h2>
+        </div>
+
+        <div class="glass-container-small">
+            <div class="numbered-item">
+                <div class="number-circle">1</div>
+                <div>
+                    <strong class="text-primary">Confirmación y primer 50%</strong>
+                    <p class="text-secondary">Para comenzar el proceso</p>
+                </div>
+            </div>
+            
+            <div class="numbered-item">
+                <div class="number-circle">2</div>
+                <div>
+                    <strong class="text-primary">Investigación y propuesta</strong>
+                    <p class="text-secondary">Análisis de tu música y audiencia</p>
+                </div>
+            </div>
+            
+            <div class="numbered-item">
+                <div class="number-circle">3</div>
+                <div>
+                    <strong class="text-primary">Reunión de onboarding</strong>
+                    <p class="text-secondary">Definimos contenidos y detalles</p>
+                </div>
+            </div>
+            
+            <div class="numbered-item">
+                <div class="number-circle">4</div>
+                <div>
+                    <strong class="text-primary">Entrega de guías</strong>
+                    <p class="text-secondary">Instrucciones de grabación</p>
+                </div>
+            </div>
+            
+            <div class="numbered-item">
+                <div class="number-circle">5</div>
+                <div>
+                    <strong class="text-primary">Grabación por tu parte</strong>
+                    <p class="text-secondary">Siguiendo las guías</p>
+                </div>
+            </div>
+            
+            <div class="numbered-item">
+                <div class="number-circle">6</div>
+                <div>
+                    <strong class="text-primary">Producción de piezas</strong>
+                    <p class="text-secondary">Edición y calendarización</p>
+                </div>
+            </div>
+            
+            <div class="numbered-item">
+                <div class="number-circle">7</div>
+                <div>
+                    <strong class="text-primary">Ejecución de estrategia</strong>
+                    <p class="text-secondary">Lanzamiento y seguimiento</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
